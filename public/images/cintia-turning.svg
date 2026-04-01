@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 500" width="300" height="500">
+  <!-- Body -->
+  <rect x="100" y="180" width="100" height="200" rx="10" fill="#E8967A"/>
+  <!-- Dress -->
+  <path d="M80 250 Q150 240 220 250 L240 420 Q150 430 60 420 Z" fill="#FF4081"/>
+  <!-- Arms -->
+  <rect x="60" y="200" width="40" height="120" rx="15" fill="#D4836B" transform="rotate(-5 80 200)"/>
+  <rect x="200" y="200" width="40" height="120" rx="15" fill="#D4836B" transform="rotate(5 220 200)"/>
+  <!-- Neck -->
+  <rect x="130" y="150" width="40" height="40" rx="5" fill="#D4836B"/>
+  <!-- Head (3/4 turn) -->
+  <ellipse cx="155" cy="120" rx="55" ry="55" fill="#D4836B"/>
+  <!-- Hair (turning, showing some face) -->
+  <path d="M95 90 Q90 60 110 40 Q150 20 190 40 Q210 60 205 90 L210 200 Q170 210 100 200 Z" fill="#1A1A2E"/>
+  <!-- Partial face visible -->
+  <ellipse cx="185" cy="110" rx="8" ry="5" fill="#1A1A2E"/>
+  <!-- Eyebrow -->
+  <path d="M178 102 Q185 98 195 102" stroke="#1A1A2E" stroke-width="2.5" fill="none"/>
+  <!-- Partial mouth -->
+  <path d="M180 135 Q188 140 195 135" stroke="#C0392B" stroke-width="2" fill="none"/>
+  <!-- Hair strands -->
+  <path d="M100 100 Q95 150 90 200" stroke="#0D0D1A" stroke-width="2" fill="none"/>
+  <path d="M130 80 Q125 140 120 200" stroke="#0D0D1A" stroke-width="2" fill="none"/>
+  <!-- Legs -->
+  <rect x="110" y="400" width="30" height="80" rx="10" fill="#D4836B"/>
+  <rect x="160" y="400" width="30" height="80" rx="10" fill="#D4836B"/>
+  <!-- Shoes -->
+  <ellipse cx="125" cy="480" rx="20" ry="8" fill="#FF4081"/>
+  <ellipse cx="175" cy="480" rx="20" ry="8" fill="#FF4081"/>
+</svg>
