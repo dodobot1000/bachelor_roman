@@ -1,65 +1,48 @@
 <script setup>
 import { ref, computed, onUnmounted } from 'vue'
 
-const emit = defineEmits(['lose', 'win'])
+const emit = defineEmits(['lose', 'win', 'menu'])
 
-const gameState = ref('intro') // 'intro', 'playing', 'reveal', 'result'
+const gameState = ref('intro') // 'intro', 'playing'
 
 const substances = [
   {
     id: 'cocaine',
     name: 'Coca\u00efne',
-    color: '#f5f5f0',
-    texture: 'fine',
-    description: 'Poudre blanche fine et brillante',
-    hint: 'Souvent en lignes...',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Peruvian_Flake_Cocaine.jpg/500px-Peruvian_Flake_Cocaine.jpg',
   },
   {
     id: 'sel',
     name: 'Sel',
-    color: '#ffffff',
-    texture: 'crystal',
-    description: 'Cristaux blancs translucides',
-    hint: 'On en met dans la soupe!',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Salt_Crystals.JPG/500px-Salt_Crystals.JPG',
   },
   {
     id: 'ghb',
     name: 'GHB',
-    color: '#e8e8f0',
-    texture: 'liquid',
-    description: 'Liquide transparent inodore',
-    hint: 'Aussi appel\u00e9 "drogue du viol"',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/GHB_%28Gamma-Hydroxybutyric_Acid%29.jpg/500px-GHB_%28Gamma-Hydroxybutyric_Acid%29.jpg',
   },
   {
     id: 'sucre',
     name: 'Sucre',
-    color: '#fffef5',
-    texture: 'granular',
-    description: 'Granul\u00e9s blancs fins',
-    hint: 'Dans ton caf\u00e9 le matin!',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Sugar_2xmacro.jpg/500px-Sugar_2xmacro.jpg',
   },
 ]
 
-// Generate rounds - each substance appears, shuffled
+// 4 rounds, one per substance, shuffled order
 function generateRounds() {
-  const rounds = []
-  // 5 rounds with random substances
-  for (let i = 0; i < 5; i++) {
-    rounds.push(substances[Math.floor(Math.random() * substances.length)])
-  }
-  return rounds
+  return [...substances].sort(() => Math.random() - 0.5)
 }
 
-const rounds = ref(generateRounds())
+const rounds = ref([])
 const currentRound = ref(0)
 const score = ref(0)
 const selectedAnswer = ref(null)
 const showResult = ref(false)
 let resultTimeout = null
 
+const totalRounds = 4
 const currentSubstance = computed(() => rounds.value[currentRound.value])
-const isCorrect = computed(() => selectedAnswer.value === currentSubstance.value.id)
-const totalRounds = computed(() => rounds.value.length)
+const isCorrect = computed(() => selectedAnswer.value === currentSubstance.value?.id)
 
 // Shuffle choices for each round
 const shuffledChoices = computed(() => {
@@ -90,8 +73,7 @@ function selectAnswer(id) {
 }
 
 function nextRound() {
-  if (currentRound.value >= totalRounds.value - 1) {
-    // Game finished
+  if (currentRound.value >= totalRounds - 1) {
     if (score.value >= 3) {
       emit('win')
     } else {
@@ -111,6 +93,7 @@ onUnmounted(() => {
 
 <template>
   <div class="level-two">
+    <button class="menu-back-btn" @click="$emit('menu')">&larr; Menu</button>
     <!-- Intro -->
     <div v-if="gameState === 'intro'" class="level-intro">
       <div class="level-badge">Niveau 2</div>
@@ -118,89 +101,29 @@ onUnmounted(() => {
       <p class="instruction">
         On te montre une substance suspecte.<br />
         &Agrave; toi de deviner ce que c'est!<br />
-        <strong>3/5 bonnes r&eacute;ponses</strong> pour passer.
+        <strong>3/4 bonnes r&eacute;ponses</strong> pour passer.
       </p>
       <button class="start-btn" @click="startGame">C'est parti!</button>
     </div>
 
     <!-- Playing -->
-    <div v-else class="game-area">
+    <div v-else-if="currentSubstance" class="game-area">
       <!-- Score & Progress -->
       <div class="top-bar">
         <div class="round-info">{{ currentRound + 1 }} / {{ totalRounds }}</div>
         <div class="score-info">Score: {{ score }}</div>
       </div>
 
-      <!-- Substance display -->
+      <!-- Substance photo -->
       <div class="substance-card">
-        <div class="substance-visual" :class="currentSubstance.texture">
-          <div class="substance-inner">
-            <!-- Fine powder -->
-            <template v-if="currentSubstance.texture === 'fine'">
-              <div class="powder-pile">
-                <div v-for="i in 40" :key="i" class="powder-dot"
-                  :style="{
-                    left: 20 + Math.random() * 60 + '%',
-                    top: 25 + Math.random() * 50 + '%',
-                    width: 2 + Math.random() * 4 + 'px',
-                    height: 2 + Math.random() * 4 + 'px',
-                    opacity: 0.5 + Math.random() * 0.5,
-                    background: currentSubstance.color,
-                  }"
-                ></div>
-                <div class="powder-line" v-for="i in 3" :key="'l'+i"
-                  :style="{
-                    top: 30 + i * 15 + '%',
-                    left: '25%',
-                    width: '50%',
-                  }"
-                ></div>
-              </div>
-            </template>
-
-            <!-- Crystal -->
-            <template v-if="currentSubstance.texture === 'crystal'">
-              <div class="crystal-pile">
-                <div v-for="i in 25" :key="i" class="crystal"
-                  :style="{
-                    left: 15 + Math.random() * 70 + '%',
-                    top: 20 + Math.random() * 60 + '%',
-                    width: 3 + Math.random() * 8 + 'px',
-                    height: 3 + Math.random() * 8 + 'px',
-                    transform: 'rotate(' + Math.random() * 360 + 'deg)',
-                    opacity: 0.6 + Math.random() * 0.4,
-                  }"
-                ></div>
-              </div>
-            </template>
-
-            <!-- Liquid -->
-            <template v-if="currentSubstance.texture === 'liquid'">
-              <div class="liquid-container">
-                <div class="glass">
-                  <div class="liquid-fill"></div>
-                  <div class="liquid-shine"></div>
-                </div>
-              </div>
-            </template>
-
-            <!-- Granular -->
-            <template v-if="currentSubstance.texture === 'granular'">
-              <div class="granular-pile">
-                <div v-for="i in 35" :key="i" class="granule"
-                  :style="{
-                    left: 15 + Math.random() * 70 + '%',
-                    top: 20 + Math.random() * 60 + '%',
-                    width: 2 + Math.random() * 5 + 'px',
-                    height: 2 + Math.random() * 5 + 'px',
-                    opacity: 0.4 + Math.random() * 0.6,
-                  }"
-                ></div>
-              </div>
-            </template>
-          </div>
+        <div class="substance-photo">
+          <img
+            :src="currentSubstance.image"
+            :alt="'Substance ' + (currentRound + 1)"
+            class="substance-img"
+            referrerpolicy="no-referrer"
+          />
         </div>
-        <p class="substance-hint">{{ currentSubstance.hint }}</p>
       </div>
 
       <!-- Choices -->
@@ -304,7 +227,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  gap: 1.5rem;
+  gap: 1.2rem;
 }
 
 .top-bar {
@@ -328,109 +251,28 @@ onUnmounted(() => {
   color: #E0B0FF;
 }
 
-/* ===== SUBSTANCE CARD ===== */
+/* ===== SUBSTANCE PHOTO ===== */
 .substance-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
 }
 
-.substance-visual {
-  width: clamp(200px, 50vw, 280px);
-  height: clamp(150px, 35vw, 200px);
-  background: #2a2a3e;
+.substance-photo {
+  width: clamp(240px, 60vw, 340px);
+  aspect-ratio: 4 / 3;
   border-radius: 16px;
-  border: 2px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
-  position: relative;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  background: #1a1a2e;
 }
 
-.substance-inner {
+.substance-img {
   width: 100%;
   height: 100%;
-  position: relative;
-}
-
-.substance-hint {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-style: italic;
-}
-
-/* Powder dots */
-.powder-dot {
-  position: absolute;
-  border-radius: 50%;
-}
-
-.powder-line {
-  position: absolute;
-  height: 3px;
-  background: rgba(245, 245, 240, 0.6);
-  border-radius: 2px;
-}
-
-/* Crystal */
-.crystal {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-}
-
-/* Liquid */
-.liquid-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.glass {
-  width: 60px;
-  height: 100px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 0 0 8px 8px;
-  border-top: none;
-  position: relative;
-  overflow: hidden;
-  clip-path: polygon(5% 0%, 95% 0%, 85% 100%, 15% 100%);
-}
-
-.liquid-fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70%;
-  background: rgba(200, 200, 240, 0.2);
-  animation: liquidWave 2s ease infinite;
-}
-
-.liquid-shine {
-  position: absolute;
-  top: 30%;
-  left: 20%;
-  width: 8px;
-  height: 30px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-  transform: rotate(-15deg);
-}
-
-@keyframes liquidWave {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
-
-/* Granular */
-.granule {
-  position: absolute;
-  background: rgba(255, 254, 245, 0.7);
-  border-radius: 1px;
+  object-fit: cover;
+  display: block;
 }
 
 /* ===== CHOICES ===== */

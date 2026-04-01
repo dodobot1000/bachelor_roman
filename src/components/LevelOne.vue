@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 
-const emit = defineEmits(['lose', 'win'])
+const emit = defineEmits(['lose', 'win', 'menu'])
 
 // Game states: 'intro', 'playing'
 const gameState = ref('intro')
@@ -144,6 +144,7 @@ function preventDefault(e) {
 
 <template>
   <div class="level-one">
+    <button class="menu-back-btn" @click="$emit('menu')">&larr; Menu</button>
     <!-- Intro -->
     <div v-if="gameState === 'intro'" class="level-intro">
       <div class="level-badge">Niveau 1</div>

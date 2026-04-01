@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 
-const emit = defineEmits(['lose', 'win'])
+const emit = defineEmits(['lose', 'win', 'menu'])
 
 const gameState = ref('intro') // 'intro', 'playing'
 
@@ -271,6 +271,7 @@ function gangsterEmoji(type) {
 
 <template>
   <div class="level-three">
+    <button class="menu-back-btn" @click="$emit('menu')">&larr; Menu</button>
     <!-- Intro -->
     <div v-if="gameState === 'intro'" class="level-intro">
       <div class="level-badge">Niveau 3</div>

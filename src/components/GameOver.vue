@@ -8,12 +8,13 @@
       <button class="retry-btn" @click="$emit('retry')">
         Recommencer
       </button>
+      <button class="menu-back-btn" style="position:static;margin-top:0.5rem" @click="$emit('menu')">&larr; Menu</button>
     </div>
   </div>
 </template>
 
 <script setup>
-defineEmits(['retry'])
+defineEmits(['retry', 'menu'])
 </script>
 
 <style scoped>

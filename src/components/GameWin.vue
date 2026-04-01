@@ -12,6 +12,7 @@
       <button v-else class="next-btn" disabled>
         Plus de niveaux (bient&ocirc;t...)
       </button>
+      <button class="menu-back-btn" style="position:static;margin-top:0.5rem" @click="$emit('menu')">&larr; Menu</button>
     </div>
   </div>
 </template>
@@ -21,7 +22,7 @@ defineProps({
   message: { type: String, default: 'Bien jou\u00e9!' },
   hasNext: { type: Boolean, default: false },
 })
-defineEmits(['next'])
+defineEmits(['next', 'menu'])
 
 const confettiStyle = (i) => ({
   left: `${Math.random() * 100}%`,
