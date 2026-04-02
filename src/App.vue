@@ -6,6 +6,8 @@ import LevelTwo from './components/LevelTwo.vue'
 import LevelThree from './components/LevelThree.vue'
 import LevelFour from './components/LevelFour.vue'
 import LevelFive from './components/LevelFive.vue'
+import LevelSix from './components/LevelSix.vue'
+import LevelSeven from './components/LevelSeven.vue'
 import GameOver from './components/GameOver.vue'
 import GameWin from './components/GameWin.vue'
 
@@ -13,8 +15,8 @@ const scene = ref('intro')
 const currentLevel = ref(1)
 const winMessage = ref('')
 
-const MAX_LEVEL = 5
-const levelScenes = { 1: 'level1', 2: 'level2', 3: 'level3', 4: 'level4', 5: 'level5' }
+const MAX_LEVEL = 7
+const levelScenes = { 1: 'level1', 2: 'level2', 3: 'level3', 4: 'level4', 5: 'level5', 6: 'level6', 7: 'level7' }
 
 function goToLevel() {
   currentLevel.value = 1
@@ -60,6 +62,18 @@ function onWinLevel5() {
   scene.value = 'win'
 }
 
+function onWinLevel6() {
+  winMessage.value = 'Tu as surv\u00e9cu \u00e0 Yiz\u00e9!'
+  currentLevel.value = 6
+  scene.value = 'win'
+}
+
+function onWinLevel7() {
+  winMessage.value = 'Tu sais reconna\u00eetre les chromosomes!'
+  currentLevel.value = 7
+  scene.value = 'win'
+}
+
 function goToMenu() {
   scene.value = 'intro'
 }
@@ -85,6 +99,8 @@ function nextLevel() {
     <LevelThree v-else-if="scene === 'level3'" @lose="onLose" @win="onWinLevel3" @menu="goToMenu" />
     <LevelFour v-else-if="scene === 'level4'" @lose="onLose" @win="onWinLevel4" @menu="goToMenu" />
     <LevelFive v-else-if="scene === 'level5'" @lose="onLose" @win="onWinLevel5" @menu="goToMenu" />
+    <LevelSix v-else-if="scene === 'level6'" @lose="onLose" @win="onWinLevel6" @menu="goToMenu" />
+    <LevelSeven v-else-if="scene === 'level7'" @lose="onLose" @win="onWinLevel7" @menu="goToMenu" />
     <GameOver v-else-if="scene === 'gameover'" @retry="retry" @menu="goToMenu" />
     <GameWin
       v-else-if="scene === 'win'"
