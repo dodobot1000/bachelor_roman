@@ -2,7 +2,7 @@
   <div class="intro">
     <div class="confetti" v-for="i in 20" :key="i" :style="confettiStyle(i)"></div>
     <div class="content">
-      <h1 class="title">Bachelor de Roman</h1>
+      <h1 class="title">Bachelor au Bresil</h1>
       <p class="subtitle">Le jeu ultime du Bachelor!</p>
       <div class="decoration">
         <span>&#127870;</span>
