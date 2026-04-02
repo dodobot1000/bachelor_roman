@@ -53,6 +53,7 @@ const levels = [
   { id: 2, name: 'Devine la substance' },
   { id: 3, name: 'Fuir de la favela' },
   { id: 4, name: 'Laquelle est l\u00e9gale?' },
+  { id: 5, name: 'Quizz Br\u00e9sil' },
 ]
 
 const confettiStyle = (i) => ({
