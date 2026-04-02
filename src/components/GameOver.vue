@@ -4,7 +4,7 @@
       <div class="icon">&#128561;</div>
       <h1>PRIS EN FLAGRANT D&Eacute;LIT!</h1>
       <p>Cintia t'a vu regarder son vid&eacute;o!</p>
-      <img src="/images/cintia-facing.svg" alt="Cintia angry" class="cintia-img" />
+      <img :src="cintiaImg" alt="Cintia angry" class="cintia-img" />
       <button class="retry-btn" @click="$emit('retry')">
         Recommencer
       </button>
@@ -15,6 +15,7 @@
 
 <script setup>
 defineEmits(['retry', 'menu'])
+const cintiaImg = `${import.meta.env.BASE_URL}images/cintia-facing.svg`
 </script>
 
 <style scoped>

@@ -26,9 +26,9 @@ const progress = computed(() => (watchedTime.value / TOTAL_TIME) * 100)
 
 const cintiaImage = computed(() => {
   switch (cintiaState.value) {
-    case 'turning': return '/images/cintia-turning.svg'
-    case 'facing': return '/images/cintia-facing.svg'
-    default: return '/images/cintia-back.svg'
+    case 'turning': return `${import.meta.env.BASE_URL}images/cintia-turning.svg`
+    case 'facing': return `${import.meta.env.BASE_URL}images/cintia-facing.svg`
+    default: return `${import.meta.env.BASE_URL}images/cintia-back.svg`
   }
 })
 
