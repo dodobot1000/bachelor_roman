@@ -127,10 +127,10 @@ onUnmounted(() => { clearTimeout(resultTimeout) })
     <!-- Intro -->
     <div v-if="gameState === 'intro'" class="level-intro">
       <div class="level-badge">Niveau 7</div>
-      <h2>Qui a 2 chromosomes X?</h2>
+      <h2>Trans ou PAS trans</h2>
       <p class="instruction">
         On te montre 2 personnes.<br />
-        Devine qui a les chromosomes XX!<br />
+        Devine qui est une TRANS!<br />
         <strong>5/{{ totalRounds }} bonnes r&eacute;ponses</strong> pour passer.
       </p>
       <button class="start-btn" @click="startGame">C'est parti!</button>
@@ -150,7 +150,7 @@ onUnmounted(() => { clearTimeout(resultTimeout) })
       </div>
 
       <div class="question">
-        <span class="question-text">Qui a <strong>2 chromosomes X</strong> ?</span>
+        <span class="question-text">Laquelle n'est <strong>PAS une Trans</strong> ?</span>
       </div>
 
       <div class="cards">

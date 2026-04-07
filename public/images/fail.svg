@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#FF4081"/>
+      <stop offset="100%" stop-color="#7C0E2C"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="90" fill="url(#bg)" stroke="#fff" stroke-width="4"/>
+  <!-- X mark -->
+  <line x1="55" y1="55" x2="145" y2="145" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+  <line x1="145" y1="55" x2="55" y2="145" stroke="#fff" stroke-width="14" stroke-linecap="round"/>
+  <!-- FAIL text -->
+  <text x="100" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="22" fill="#fff">FAIL</text>
+</svg>

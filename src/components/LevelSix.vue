@@ -19,8 +19,8 @@ const yize = reactive({ x: 50, y: 30, speedX: 0, speedY: 0 })
 const obstacles = ref([])
 
 // Timer
-const timeLeft = ref(15)
-const GAME_DURATION = 15
+const timeLeft = ref(10)
+const GAME_DURATION = 10
 
 // Animation
 let animFrame = null
@@ -151,11 +151,8 @@ onUnmounted(() => {
       <div class="yize-preview">
         <img :src="yizeImg" alt="Yiz\u00e9" class="yize-preview-img" />
       </div>
-      <h2>Sors Yiz&eacute; du bar!</h2>
+      <h2>Yiz&eacute; veut se battre, &eacute;vite Yiz&eacute; pendant 10 secondes.</h2>
       <p class="instruction">
-        Yiz&eacute; veut se battre!<br />
-        Sors du bar en s&eacute;curit&eacute;.<br />
-        Survis <strong>15 secondes</strong> sans te faire attraper!<br /><br />
         <strong>Clavier:</strong> fl&egrave;ches ou WASD<br />
         <strong>Mobile:</strong> touche et glisse
       </p>

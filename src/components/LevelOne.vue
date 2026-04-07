@@ -9,7 +9,7 @@ const gameState = ref('intro')
 // Watching state
 const isHolding = ref(false)
 const watchedTime = ref(0)
-const TOTAL_TIME = 15
+const TOTAL_TIME = 10
 
 // Cintia states: 'back', 'turning', 'facing'
 const cintiaState = ref('back')
@@ -148,8 +148,7 @@ function preventDefault(e) {
     <!-- Intro -->
     <div v-if="gameState === 'intro'" class="level-intro">
       <div class="level-badge">Niveau 1</div>
-      <h2>Regarde le vid&eacute;o de Cintia de Sa, sans te faire prendre par elle!</h2>
-      <p class="instruction">Tiens appuy&eacute; sur le t&eacute;l&eacute;phone pour regarder.<br>Rel&acirc;che quand elle se retourne!</p>
+      <h2>Tu es au resto avec tes boys, et une une pornstar de OD est &agrave; la table d'en face. Click sur l'ic&ocirc;ne du cellulaire pour regarder sa vid&eacute;o, sans te faire surprendre par elle.</h2>
       <button class="start-btn" @click="startGame">Regarder</button>
     </div>
 
@@ -188,8 +187,12 @@ function preventDefault(e) {
           <div class="phone-screen">
             <div class="video-placeholder" :class="{ playing: isHolding }">
               <div class="video-gradient"></div>
-              <div class="video-content">
-                <div class="video-icon">{{ isHolding ? '&#9654;&#65039;' : '&#9208;&#65039;' }}</div>
+              <div v-if="isHolding" class="censored">
+                <div class="censored-bar"></div>
+                <div class="censored-text">CENSORED</div>
+              </div>
+              <div v-else class="video-content">
+                <div class="video-icon">&#9208;&#65039;</div>
                 <div class="video-title">Cintia de Sa</div>
                 <div class="video-sub">@cinbrazil</div>
               </div>
@@ -526,6 +529,51 @@ function preventDefault(e) {
 @keyframes barBounce {
   from { height: 8px; }
   to { height: 28px; }
+}
+
+/* ===== Censored animation ===== */
+.censored {
+  position: relative;
+  z-index: 2;
+  width: 80%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.censored-bar {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 38%;
+  background: #000;
+  border: 2px solid #fff;
+  transform: translateY(-50%);
+  animation: barWobble 0.4s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.censored-text {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.8);
+  animation: textBounce 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes barWobble {
+  from { transform: translateY(-50%) rotate(-1.5deg) scaleX(0.98); }
+  to   { transform: translateY(-50%) rotate(1.5deg) scaleX(1.02); }
+}
+
+@keyframes textBounce {
+  0%   { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-8px) scale(1.08); }
 }
 
 .hold-hint {

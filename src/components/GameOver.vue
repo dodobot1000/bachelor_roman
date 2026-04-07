@@ -2,9 +2,8 @@
   <div class="game-over">
     <div class="content">
       <div class="icon">&#128561;</div>
-      <h1>PRIS EN FLAGRANT D&Eacute;LIT!</h1>
-      <p>Cintia t'a vu regarder son vid&eacute;o!</p>
-      <img :src="cintiaImg" alt="Cintia angry" class="cintia-img" />
+      <h1>Tu as &eacute;chou&eacute;</h1>
+      <img :src="failImg" alt="Fail" class="cintia-img" />
       <button class="retry-btn" @click="$emit('retry')">
         Recommencer
       </button>
@@ -15,7 +14,7 @@
 
 <script setup>
 defineEmits(['retry', 'menu'])
-const cintiaImg = `${import.meta.env.BASE_URL}images/cintia-facing.svg`
+const failImg = `${import.meta.env.BASE_URL}images/fail.svg`
 </script>
 
 <style scoped>
