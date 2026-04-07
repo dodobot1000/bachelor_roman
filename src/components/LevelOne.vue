@@ -147,7 +147,7 @@ function preventDefault(e) {
     <button class="menu-back-btn" @click="$emit('menu')">&larr; Menu</button>
     <!-- Intro -->
     <div v-if="gameState === 'intro'" class="level-intro">
-      <div class="level-badge">Niveau 1</div>
+      <div class="level-badge">Niveau 5</div>
       <h2>Tu es au resto avec tes boys, et une une pornstar de OD est &agrave; la table d'en face. Click sur l'ic&ocirc;ne du cellulaire pour regarder sa vid&eacute;o, sans te faire surprendre par elle.</h2>
       <button class="start-btn" @click="startGame">Regarder</button>
     </div>

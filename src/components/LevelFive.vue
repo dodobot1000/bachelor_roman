@@ -147,7 +147,7 @@ onUnmounted(() => {
 
     <!-- Intro -->
     <div v-if="gameState === 'intro'" class="level-intro">
-      <div class="level-badge">Niveau 5</div>
+      <div class="level-badge">Niveau 1</div>
       <h2>Quizz Br&eacute;sil!</h2>
       <p class="instruction">
         5 questions de connaissances g&eacute;n&eacute;rales sur le Br&eacute;sil.<br />
